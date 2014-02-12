@@ -10,12 +10,13 @@ xml is a pain:
 
 Example:
 
-  <?xml version="1.0" encoding="utf-8"?>
+<code><?xml version="1.0" encoding="utf-8"?>
   <elem1 attr3="val1" attr4="val2">
       <elem2 attr1="val3" attr2="val4">Here is some content</elem2>
       <elem3 attr5='val5'/>
       <elem4>foo</elem4>
   </elem1>
+</code>
 
 But we have to use it.
 
