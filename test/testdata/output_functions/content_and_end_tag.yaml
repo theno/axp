@@ -1,0 +1,114 @@
+-
+  function: 'AlleviateXmlPain::content_and_end_tag'
+  comment: "Content contains empty lines at the end"
+  before:
+    states_ref:
+      in: "some content       \n        </tagname> after"
+      is_first_printout: 1
+      indent_level: 2
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+      open_tags:
+      - 'foobar'
+      - 'tagname'
+  must_after:
+    output: "some content</tagname>" # this must be printed out by the function
+    states_ref:
+      in: " after"
+      is_first_printout: 0
+      indent_level: 1
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+      open_tags:
+      - 'foobar'
+-
+  function: 'AlleviateXmlPain::content_and_end_tag'
+  comment: "Empty tag without attributes"
+  before:
+    states_ref:
+      in: "</tag_name> after"
+      is_first_printout: 1
+      indent_level: 1
+      last_start_tag_unfinished: 1
+      last_start_tag_has_attribute: 0
+      open_tags:
+      - 'blah'
+      - 'tag_name'
+  must_after:
+    output: "\n    />"
+    states_ref:
+      in: " after"
+      is_first_printout: 0
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+      open_tags:
+      - 'blah'
+-
+  function: 'AlleviateXmlPain::content_and_end_tag'
+  comment: "Empty tag, but with attributes"
+  before:
+    states_ref:
+      in: "</tag_name> after"
+      is_first_printout: 1
+      indent_level: 1
+      last_start_tag_unfinished: 1
+      last_start_tag_has_attribute: 1
+      open_tags:
+      - 'foobar'
+      - 'tag_name'
+  must_after:
+    output: "/>"
+    states_ref:
+      in: " after"
+      is_first_printout: 0
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+      open_tags:
+      - 'foobar'
+-
+  function: 'AlleviateXmlPain::content_and_end_tag'
+  comment: "Empty tag, but with attributes"
+  before:
+    states_ref:
+      in: "   \n     </tag_name> after"
+      is_first_printout: 1
+      indent_level: 1
+      last_start_tag_unfinished: 1
+      last_start_tag_has_attribute: 1
+      open_tags:
+      - 'foobar'
+      - 'tag_name'
+  must_after:
+    output: "/>"
+    states_ref:
+      in: " after"
+      is_first_printout: 0
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+      open_tags:
+      - 'foobar'
+-
+  function: 'AlleviateXmlPain::content_and_end_tag'
+  comment: "Empty tag, but with attributes"
+  before:
+    states_ref:
+      in: "   \n     "
+      is_first_printout: 1
+      indent_level: 1
+      last_start_tag_unfinished: 1
+      last_start_tag_has_attribute: 1
+      open_tags:
+      - 'foobar'
+  must_after:
+    output: ""
+    states_ref:
+      in: "   \n     "
+      is_first_printout: 1
+      indent_level: 1
+      last_start_tag_unfinished: 1
+      last_start_tag_has_attribute: 1
+      open_tags:
+      - 'foobar'

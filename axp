@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+
+# Reads an xml file via stdin and prints it pretty formatted to stdout.
+# This is NOT a xml parser.  It's (a little bit) friendly to format-violations.
+
+# TODO: debug modus (to find endless-loops)
+# TODO: Enhance vim integration (promt at correct position after axp run)
+# TODO: Support for HTML-Syntax
+
+use strict;
+use warnings;
+
+# determination of the lib-dir relative to the path of this file
+# (and NOT relative to the calling dir)
+use Cwd 'abs_path';
+use File::Basename 'dirname';
+use lib dirname(abs_path($0)) . "/lib/";
+
+use AlleviateXmlPain;
+
+my $USAGE = "$0 < ugly_xml > pretty_xml";
+
+sub main {
+  my $num_args = $#ARGV + 1;
+  if ($num_args != 0) { die "Usage: $USAGE\n"; }
+
+  AlleviateXmlPain::xml_2_pretty_xml();
+}
+
+main();

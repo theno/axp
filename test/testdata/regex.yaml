@@ -1,0 +1,319 @@
+# regex_name: "Comment"
+
+-
+  regex_name: "Comment"
+  string: "<!--This is a comment-->"
+  comment: "A simple comment"
+  captures:
+  -
+    val: ''
+    comment: 'before'
+  -
+    val: 'This is a comment'
+    comment: 'content'
+  -
+    val: ''
+    comment: 'after'
+
+-
+  regex_name: "Comment"
+  string: "<!--This is a comment\nof two lines-->"
+  comment: "Comment with two lines"
+  captures:
+  -
+    val: ''
+    comment: 'before'
+  -
+    val: "This is a comment\nof two lines"
+    comment: 'content'
+  -
+    val: ''
+    comment: 'after'
+
+-
+  regex_name: "Comment"
+  string: "hihi\n<!--\nThis is a comment\nof two lines-->\nhoho"
+  comment: "Comment with two lines"
+  captures:
+  -
+    val: "hihi\n"
+    comment: 'before'
+  -
+    val: "\nThis is a comment\nof two lines"
+    comment: 'content'
+  -
+    val: "\nhoho"
+    comment: 'after'
+
+
+# regex_name: "Start_or_Empty_Element"
+
+-
+  regex_name: "Start_or_Empty_Element"
+  string: '<start_tag hihi="<<" foo="bar">'
+  comment: '=~ <start_tag hihi="<<" foo="bar">'
+  captures:
+  -
+    val: ''
+    comment: 'before'
+  -
+    val: 'start_tag'
+    comment: 'elem_name'
+  -
+    val: ' hihi="<<" foo="bar"'
+    comment: 'attributes'
+  -
+    val: '"bar"'
+    comment: "don't care capture"
+  -
+    val: '>'
+    comment: 'ending'
+  -
+    val: ''
+    comment: 'after'
+
+-
+  regex_name: "Start_or_Empty_Element"
+  string: '<start_tag hihi="hoho" foo="bar" >'
+  comment: '=~ <start_tag hihi="hoho" foo="bar" >'
+  captures: 
+  -
+    val: ''
+    comment: 'before'
+  -
+    val: 'start_tag'
+    comment: 'elem_name'
+  -
+    val: ' hihi="hoho" foo="bar"'
+    comment: 'attributes'
+  -
+    val: '"bar"'
+    comment: "don't care capture"
+  -
+    val: '>'
+    comment: 'ending'
+  -
+    val: ''
+    comment: 'after'
+
+-
+  regex_name: "Start_or_Empty_Element"
+  string: "Die Welt ist rund! <i-m-so-empty lorem='ipsum'/>und kunterbunt"
+  comment: '=~ something empty-element'
+  captures:
+  -
+    val: 'Die Welt ist rund! '
+    comment: 'before'
+  -
+    val: 'i-m-so-empty'
+    comment: 'elem_name'
+  -
+    val: " lorem='ipsum'"
+    comment: 'attributes'
+  -
+    val: "'ipsum'"
+    comment: "don't care capture"
+  -
+    val: '/>'
+    comment: 'ending'
+  -
+    val: 'und kunterbunt'
+    comment: 'after'
+
+-
+  regex_name: "Start_or_Empty_Element"
+  string: '<no-xml foo = "bar"><start_tag foo="bar">'
+  comment: '=~<no-xml foo = "bar"><start_tag foo="bar">'
+  captures:
+  -
+    val: ''
+    comment: 'before'
+  -
+    val: 'no-xml'
+    comment: 'elem_name'
+  -
+    val: ' foo = "bar"'
+    comment: 'attributes'
+  -
+    val: '"bar"'
+    comment: "don't care capture"
+  -
+    val: '>'
+    comment: 'ending'
+  -
+    val: '<start_tag foo="bar">'
+    comment: 'after'
+
+-
+  regex_name: "Start_or_Empty_Element"
+  string: '<foo><bar>baz</baz></foo>'
+  comment: '<foo><bar>baz</baz></foo>'
+  captures:
+  -
+    val: ''
+    comment: 'before'
+  -
+    val: 'foo'
+    comment: 'elem_name'
+  -
+    val: ''
+    comment: 'attributes'
+  -
+    val: ''
+    comment: "don't care capture"
+  -
+    val: '>'
+    comment: 'ending'
+  -
+    val: '<bar>baz</baz></foo>'
+    comment: 'after'
+
+-
+  regex_name: "Start_or_Empty_Element"
+  string: '<bar>baz</baz></foo>'
+  comment: '<bar>baz</baz></foo>'
+  captures:
+  -
+    val: ''
+    comment: 'before'
+  -
+    val: 'bar'
+    comment: 'elem_name'
+  -
+    val: ''
+    comment: 'attributes'
+  -
+    val: ''
+    comment: "don't care capture"
+  -
+    val: '>'
+    comment: 'ending'
+  -
+    val: 'baz</baz></foo>'
+    comment: 'after'
+
+-
+  regex_name: "Start_or_Empty_Element"
+  string: "before<foo bar=\"b[a='b']z\">after"
+  comment: "before<foo bar=\"b[a='b']z\">after"
+  captures:
+  -
+    val: 'before'
+    comment: 'before'
+  -
+    val: 'foo'
+    comment: 'elem_name'
+  -
+    val: " bar=\"b[a='b']z\""
+    comment: 'attributes'
+  -
+    val: "\"b[a='b']z\""
+    comment: "don't care capture"
+  -
+    val: '>'
+    comment: 'ending'
+  -
+    val: 'after'
+    comment: 'after'
+
+-
+  regex_name: "Start_or_Empty_Element"
+  string: 'before<foo bar= "baz">after'
+  comment: 'before<foo bar= "baz">after'
+  captures:
+  -
+    val: 'before'
+    comment: 'before'
+  -
+    val: 'foo'
+    comment: 'elem_name'
+  -
+    val: ' bar= "baz"'
+    comment: 'attributes'
+  -
+    val: '"baz"'
+    comment: "don't care capture"
+  -
+    val: '>'
+    comment: 'ending'
+  -
+    val: 'after'
+    comment: 'after'
+
+
+# regex_name: 'attributes'
+
+-
+  regex_name: 'attributes'
+  string: " bar=\"b[a='b']z\""
+  comment: "attributes: >bar=\"b[a='b']z\"<"
+  captures:
+  -
+    val: "bar=\"b[a='b']z\""
+    comment: "capture"
+
+-
+  regex_name: 'attributes'
+  string: " bar= 'space'"
+  comment: "attributes: \" bar= 'space'\" -> \" bar='space'\""
+  captures:
+  -
+    val: "bar= 'space'"
+    comment: "capture"
+
+-
+  regex_name: 'attributes'
+  string: " bar ='baz'"
+  comment: "attributes: \" bar ='baz'\" -> \" bar='baz'\""
+  captures:
+  -
+    val: "bar ='baz'"
+    comment: "capture"
+
+
+# regex_name: 'content_and_end_tag'
+
+-
+  regex_name: 'content_and_end_tag'
+  string: 'content</end_tag>blafasel'
+  comment: '=~ content</end_tag>blafasel'
+  captures:
+  -
+    val: 'content'
+    comment: 'before'
+  -
+    val: 'end_tag'
+    comment: 'elem_name'
+  -
+    val: 'blafasel'
+    comment: 'after'
+ 
+-
+  regex_name: 'content_and_end_tag'
+  string: 'content </end_tag >'
+  comment: '=~ content </end_tag >'
+  captures:
+  -
+    val: 'content '
+    comment: 'before'
+  -
+    val: 'end_tag'
+    comment: 'elem_name'
+  -
+    val: ''
+    comment: 'after'
+
+-
+  regex_name: 'content_and_end_tag'
+  string: '</end1></end2>'
+  comment: '=~ </end1></end2>'
+  captures:
+  -
+    val: ''
+    comment: 'before'
+  -
+    val: 'end1'
+    comment: 'elem_name'
+  -
+    val: '</end2>'
+    comment: 'after'

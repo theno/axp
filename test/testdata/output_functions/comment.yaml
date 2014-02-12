@@ -1,0 +1,57 @@
+-
+  function: 'AlleviateXmlPain::comment'
+  comment: "Simple comment"
+  before:
+    states_ref:
+      in: "<!--This is a comment-->"
+      is_first_printout: 1
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+  must_after:
+    output: "<!--\nThis is a comment\n-->" # this must the function print out 
+    states_ref:
+      in: ""
+      is_first_printout: 0
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+
+
+-
+  function: 'AlleviateXmlPain::comment'
+  comment: "Comment with two lines"
+  before:
+    states_ref:
+      in: "<!--This is a comment\nwith two lines-->"
+      is_first_printout: 1
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+  must_after:
+    output: "<!--\nThis is a comment\nwith two lines\n-->"
+    states_ref:
+      in: ""
+      is_first_printout: 0
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+
+-
+  function: 'AlleviateXmlPain::comment'
+  comment: "Comment with something before"
+  before:
+    states_ref:
+      in: "hihi<!--This is a comment\nwith two lines-->\nhoho"
+      is_first_printout: 1
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+  must_after:
+    output: "hihi\n\n<!--\nThis is a comment\nwith two lines\n-->"
+    states_ref:
+      in: "\nhoho"
+      is_first_printout: 0
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0

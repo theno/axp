@@ -1,0 +1,33 @@
+-
+  function: 'AlleviateXmlPain::xml_declaration'
+  comment: "no modification of \$in"
+  before:
+    states_ref:
+      in: "<foo></bar>"
+      is_first_printout: 1
+      indent_level: 0
+      last_start_tag_unfinished: 0
+  must_after:
+    output: "" # this must be printed out by the function
+    states_ref:
+      in: "<foo></bar>"
+      is_first_printout: 1
+      indent_level: 0
+      last_start_tag_unfinished: 0
+
+-
+  function: 'AlleviateXmlPain::xml_declaration'
+  comment: "modification of \$in"
+  before:
+    states_ref:
+      in: "before<?xml version='1.0' foo ?>after"
+      is_first_printout: 1
+      indent_level: 0
+      last_start_tag_unfinished: 0
+  must_after:
+   output: "before\n\n<?xml version='1.0' foo?>" # this must be printed out by the function
+   states_ref:
+     in: "after"
+     is_first_printout: 0
+     indent_level: 0
+     last_start_tag_unfinished: 0

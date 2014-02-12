@@ -1,0 +1,186 @@
+-
+  function: 'AlleviateXmlPain::start_or_empty_element'
+  comment: "no modification of \$in (end tag)"
+  before:
+    states_ref:
+      in: "</bar>"
+      is_first_printout: 1
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+  must_after:
+    output: "" # this must be printed out by the function
+    states_ref:
+      in: "</bar>"
+      is_first_printout: 1
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+
+-
+  function: 'AlleviateXmlPain::start_or_empty_element'
+  comment: "capture before correctly"
+  before:
+    states_ref:
+      in: "this is before <bar>after"
+      is_first_printout: 0
+      indent_level: 3
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+      open_tags:
+      - 'foo'
+  must_after:
+    output: "this is before\n\n            <bar"
+    states_ref:
+      in: "after"
+      is_first_printout: 0
+      indent_level: 4
+      last_start_tag_unfinished: 1
+      last_start_tag_has_attribute: 0
+      open_tags:
+      - 'foo'
+      - 'bar'
+
+-
+  function: 'AlleviateXmlPain::start_or_empty_element'
+  comment: "capture before with newlines"
+  before:
+    states_ref:
+      in: "before line1\n before line2 \n  line3  <bar>after"
+      is_first_printout: 0
+      indent_level: 3
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+      open_tags:
+      - 'something'
+  must_after:
+    output: "before line1\n before line2 \n  line3\n\n            <bar"
+    states_ref:
+      in: "after"
+      is_first_printout: 0
+      indent_level: 4
+      last_start_tag_unfinished: 1
+      last_start_tag_has_attribute: 0
+      open_tags:
+      - 'something'
+      - 'bar'
+
+-
+  function: 'AlleviateXmlPain::start_or_empty_element'
+  comment: "attributes with '"
+  before:
+    states_ref:
+      in: "before<foo bar=\"b'a'z\">after"
+      is_first_printout: 0
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+      open_tags:
+      - 'lulu'
+  must_after:
+    output: "before\n\n<foo\n    bar=\"b'a'z\"\n    " # this must be printed out by the function
+    states_ref:
+      in: "after"
+      is_first_printout: 0
+      indent_level: 1
+      last_start_tag_unfinished: 1
+      last_start_tag_has_attribute: 1
+      open_tags:
+      - 'lulu'
+      - 'foo'
+
+-
+  function: 'AlleviateXmlPain::start_or_empty_element'
+  comment: "attributes with '"
+  before:
+    states_ref:
+      in: "before<foo bar=\"b[a='b']z\">after"
+      is_first_printout: 0
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+      open_tags:
+      - 'lulu'
+  must_after:
+    output: "before\n\n<foo\n    bar=\"b[a='b']z\"\n    " # this must be printed out by the function
+    states_ref:
+      in: "after"
+      is_first_printout: 0
+      indent_level: 1
+      last_start_tag_unfinished: 1
+      last_start_tag_has_attribute: 1
+      open_tags:
+      - 'lulu'
+      - 'foo'
+
+-
+  function: 'AlleviateXmlPain::start_or_empty_element'
+  comment: "heal wrong attributes \"bar= 'baz'\""
+  before:
+    states_ref:
+      in: "before<foo bar= 'baz'>after"
+      is_first_printout: 0
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+      open_tags:
+      - 'lulu'
+  must_after:
+    output: "before\n\n<foo\n    bar='baz'\n    "
+    states_ref:
+      in: "after"
+      is_first_printout: 0
+      indent_level: 1
+      last_start_tag_unfinished: 1
+      last_start_tag_has_attribute: 1
+      open_tags:
+      - 'lulu'
+      - 'foo'
+
+-
+  function: 'AlleviateXmlPain::start_or_empty_element'
+  comment: "heal wrong attributes \"bar ='baz'\""
+  before:
+    states_ref:
+      in: "before<foo bar ='baz'>after"
+      is_first_printout: 0
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+      open_tags:
+      - 'lulu'
+  must_after:
+    output: "before\n\n<foo\n    bar='baz'\n    "
+    states_ref:
+      in: "after"
+      is_first_printout: 0
+      indent_level: 1
+      last_start_tag_unfinished: 1
+      last_start_tag_has_attribute: 1
+      open_tags:
+      - 'lulu'
+      - 'foo'
+
+-
+  function: 'AlleviateXmlPain::start_or_empty_element'
+  comment: "heal wrong attributes \"bar \\n=\\n  'baz'\""
+  before:
+    states_ref:
+      in: "before<foo bar \n=\n  'baz'>after"
+      is_first_printout: 0
+      indent_level: 0
+      last_start_tag_unfinished: 0
+      last_start_tag_has_attribute: 0
+      open_tags:
+      - 'lulu'
+  must_after:
+    output: "before\n\n<foo\n    bar='baz'\n    "
+    states_ref:
+      in: "after"
+      is_first_printout: 0
+      indent_level: 1
+      last_start_tag_unfinished: 1
+      last_start_tag_has_attribute: 1
+      open_tags:
+      - 'lulu'
+      - 'foo'

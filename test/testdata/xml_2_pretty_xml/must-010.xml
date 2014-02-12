@@ -1,0 +1,17 @@
+<foo>
+
+    <bar>
+
+        <baz
+            a="b"
+            />
+
+    </bar>
+
+</foo>
+
+foo
+
+bar
+
+blah
